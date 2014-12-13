@@ -1,0 +1,3 @@
+---
+chat-format: "<[%group%] %user_name%}> %message%"
+...
