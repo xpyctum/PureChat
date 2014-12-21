@@ -1,3 +1,17 @@
 ---
-chat-format: "<[%group%] %user_name%}> %message%"
+# Allows you to use per-world chat formats
+# - true / false
+enable-multiworld-formats: false
+
+# A list of all PurePerms groups
+groups:
+  Guest:
+    default: "[Guest] %user_name% > %message%"
+    worlds: [] 
+  Admin:
+    default: "[Admin] %user_name% > %message%"
+    worlds: []
+  Owner: 
+    default: "[Owner] %user_name% > %message%"
+    worlds: []
 ...

@@ -19,6 +19,8 @@ use pocketmine\event\player\PlayerChatEvent;
 
 class ChatListener implements Listener
 {
+	private $plugin;
+	
 	public function __construct(PureChat $plugin)
 	{
 		$this->plugin = $plugin;
@@ -28,7 +30,11 @@ class ChatListener implements Listener
 	{
 		$player = $event->getPlayer();
 		
-		$chatFormat = $this->plugin->formatMessage($player, $event->getMessage());
+		$isMultiWorldFormatsEnabled = $this->plugin->getConfig()->get("enable-multiworld-formats");
+		
+		$levelName = $isMultiWorldFormatsEnabled ?  $player->getLevel()->getName() : null;
+		
+		$chatFormat = $this->plugin->formatMessage($player, $event->getMessage(), $levelName);
 		
 		$event->setFormat($chatFormat);
 	}

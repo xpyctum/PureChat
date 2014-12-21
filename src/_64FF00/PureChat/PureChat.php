@@ -23,7 +23,7 @@ class PureChat extends PluginBase
 	
 	public function onLoad()
 	{
-		$this->config = new Configuration($this);
+		$this->saveDefaultConfig();
 	}
 	
 	public function onEnable()
@@ -33,21 +33,22 @@ class PureChat extends PluginBase
 		$this->getServer()->getPluginManager()->registerEvents(new ChatListener($this), $this);
 	}
 	
-	public function formatMessage(Player $player, $message)
+	public function formatMessage(Player $player, $message, $levelName = null)
 	{
-		$chatFormat = $this->config->getValue("chat-format");
+		$groupName = $this->plugin->getUser($player)->getGroup($levelName)->getName();
 		
-		$isMultiWorldPermsEnabled = $this->plugin->getPPConfig()->getValue("enable-multiworld-perms");
-		
-		$levelName = $isMultiWorldPermsEnabled ? $player->getLevel()->getName() : null;
+		if($levelName == null)
+		{
+			$chatFormat = $this->getConfig()->getNested("groups.$groupName.default");
+		}
+		else
+		{
+			$chatFormat = $this->getConfig()->getNested("groups.$groupName.worlds.$levelName");
+		}
 		
 		$chatFormat = str_replace("%world_name%", $levelName, $chatFormat);
-		$chatFormat = str_replace("%user_name%", $player->getName(), $chatFormat);		
+		$chatFormat = str_replace("%user_name%", $player->getName(), $chatFormat);
 		$chatFormat = str_replace("%message%", $message, $chatFormat);
-		
-		$group = $this->plugin->getUser($player)->getGroup($levelName);
-		
-		$chatFormat = str_replace("%group%", $group->getName(), $chatFormat);
 		
 		return $chatFormat;
 	}
