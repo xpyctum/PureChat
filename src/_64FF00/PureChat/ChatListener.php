@@ -6,17 +6,6 @@ use pocketmine\event\Listener;
 
 use pocketmine\event\player\PlayerChatEvent;
 
-/*
-      # #    #####  #       ####### #######   ###     ###   
-      # #   #     # #    #  #       #        #   #   #   #  
-    ####### #       #    #  #       #       #     # #     # 
-      # #   ######  #    #  #####   #####   #     # #     # 
-    ####### #     # ####### #       #       #     # #     # 
-      # #   #     #      #  #       #        #   #   #   #  
-      # #    #####       #  #       #         ###     ###                                        
-                                                                                   
-*/
-
 class ChatListener implements Listener
 {
 	private $plugin;
