@@ -4,6 +4,7 @@
 enable-multiworld-formats: false
 
 # A list of all PurePerms groups
+# If you have FactionsPro installed, add %faction% anywhere
 groups:
   Guest:
     default: "[Guest] %user_name% > %message%"

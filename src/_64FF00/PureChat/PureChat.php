@@ -19,7 +19,7 @@ use pocketmine\plugin\PluginBase;
 
 class PureChat extends PluginBase
 {
-	private $config, $plugin;
+	private $config, $plugin, $factionspro;
 	
 	public function onLoad()
 	{
@@ -29,6 +29,7 @@ class PureChat extends PluginBase
 	public function onEnable()
 	{
 		$this->plugin = $this->getServer()->getPluginManager()->getPlugin("PurePerms");
+		$this->factionspro = $this->getServer()->getPluginManager()->getPlugin("FactionsPro");
 		
 		$this->getServer()->getPluginManager()->registerEvents(new ChatListener($this), $this);
 	}
@@ -49,6 +50,12 @@ class PureChat extends PluginBase
 		$chatFormat = str_replace("%world_name%", $levelName, $chatFormat);
 		$chatFormat = str_replace("%user_name%", $player->getName(), $chatFormat);
 		$chatFormat = str_replace("%message%", $message, $chatFormat);
+		if(!$this->factionspro == false) {
+			if($this->factionspro->isInFaction($player->getName())) {
+				$chatformat = str_replace("%faction%", $this->factionspro->getPlayerFaction($player->getName()), $chatFormat);
+			}
+		}
+		
 		
 		return $chatFormat;
 	}
